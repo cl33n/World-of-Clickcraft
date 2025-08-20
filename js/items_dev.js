@@ -32,8 +32,8 @@ window.content.items = [
         icon: 'inv_sword_04',
         baseMinDamage: 1,
         baseMaxDamage: 2,
-    },
-    {
+    }]
+    /*{
         id: 2,
         name: 'Pelt',
         quality: 0,
@@ -235,4 +235,6 @@ window.content.items = [
         requiredLevel: 3,
         salable: true
     },
-]
+] 
+
+**/

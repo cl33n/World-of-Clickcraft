@@ -2152,12 +2152,12 @@ var app = new Vue({
 				this.merchantFrame.open = false
 				this.merchantCooldown()
 				if (click) {
-					this.itemHoverEnter({ title: 'Hearthstone to Town', effectDescription: Math.round(this.merchantFrame.cooldown / 60 * 100) / 100 + ' min cooldown' }, -1, 'interface')
+					this.itemHoverEnter({ title: 'Hearthstone to Town', effectDescription: 'Use freely!' }, -1, 'interface')
 				}
 			} else {
 				this.merchantFrame.open = true
 				if (click) {
-					this.itemHoverEnter({ title: 'Leave Town', effectDescription: Math.round(this.merchantFrame.cooldown / 60 * 100) / 100 + ' min cooldown' }, -1, 'interface')
+					this.itemHoverEnter({ title: 'Leave Town', effectDescription: 'Use freely!' }, -1, 'interface')
 				}
 			}
 		},
