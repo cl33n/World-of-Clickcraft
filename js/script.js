@@ -201,10 +201,7 @@ var app = new Vue({
 			this.updateSlots(this.player.bag.slots, slots)
 			//this.player.bag.level = Math.floor(slots / 8) I need to find a good way
 		},
-		/*adding a function for enemy hp*/
-		'enemy.hp': function () {
 
-		},
 		'merchantFrame.open': function (value) {
 			if (value === true) {
 				this.progressionMode = false
@@ -650,7 +647,7 @@ var app = new Vue({
 	},
 
 	methods: {
-
+		//state function for game init, xp calc, money, items, enemy spawn
 		gameInit() {
 			if (this.player.gameStats.startedDate == null) {
 				this.player.gameStats.startedDate = new Date(Date.parse(new Date()))
@@ -714,7 +711,13 @@ var app = new Vue({
 			if (enemy.level <= this.player.level + 2) return 'yellowlevel'
 			if (enemy.level >= this.player.level - 2) return 'yellowlevel'
 		},
-
+		//enemy damage method
+		enemyHP(enemy) {
+			//if (enemy.level * enemy.hp <= enemy.baseHp) return enemy.hp * enemy.level
+			return enemy.hp * enemy.level
+			//else return enemy.baseHp
+			
+		},
 		rand(min, max) {
 			return Math.floor(Math.random() * (max - min + 1) + min)
 		},
@@ -926,7 +929,7 @@ var app = new Vue({
 				return "Dead" // a bit useless I know
 			}
 
-			return Math.ceil(enemy.hp) + " / " + Math.ceil(enemy.maxHp)
+			return Math.ceil(enemy.hp)
 		},
 
 		killToLevelUp(enemy) {
@@ -1023,8 +1026,8 @@ var app = new Vue({
 				//Lazy formula below
 				generatedEnemy.name = "Rare " + generatedEnemy.name
 				generatedEnemy.type = "rare"
-				generatedEnemy.maxHp *= 2
-				generatedEnemy.hp = generatedEnemy.maxHp
+				generatedEnemy.baseHp *= 2
+				generatedEnemy.hp = generatedEnemy.baseHp
 			}
 			return generatedEnemy
 		},
@@ -1032,7 +1035,7 @@ var app = new Vue({
 		spawnEnemy(allowRare = true) {
 			Object.assign(this.enemies[0], this.enemies[1]) //Dirty hackfix
 			enemy = this.generateEnemy(this.chooseEnemy(), allowRare)
-			enemy.hp = enemy.maxHp
+			enemy.hp = enemy.baseHp
 		},
 		*/
 
@@ -1298,7 +1301,7 @@ var app = new Vue({
 			}*/
 			this.lootGeneration(enemy)
 			this.lastUpdateTime = Date.now();
-			enemy.hp = enemy.maxHp
+			enemy.hp = enemy.baseHp * enemy.level;
 			this.spawnEnemy()
 		},
 
@@ -1309,7 +1312,7 @@ var app = new Vue({
 
 			for (const enemyIndex of currentEnemies) {
 				const enemy = this.enemies[enemyIndex];
-				enemy.hp = enemy.maxHp;
+				enemy.hp = enemy.baseHp * enemy.level;
 			}
 
 			this.spawnEnemy()
@@ -2344,7 +2347,7 @@ var app = new Vue({
 		},
 
 	},
-
+//keypress logic
 	mounted() {
 
 		window.addEventListener('mousemove', this.getMouseCoords)
