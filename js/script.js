@@ -201,7 +201,10 @@ var app = new Vue({
 			this.updateSlots(this.player.bag.slots, slots)
 			//this.player.bag.level = Math.floor(slots / 8) I need to find a good way
 		},
+		/*adding a function for enemy hp*/
+		'enemy.hp': function () {
 
+		},
 		'merchantFrame.open': function (value) {
 			if (value === true) {
 				this.progressionMode = false
